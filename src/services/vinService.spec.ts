@@ -18,7 +18,7 @@ describe("Vin Service", () => {
 
         it("takes type from Results array", () =>
             expect(
-                convert(vinCheckResponseFixture({ Results: [entry("Vehicle Type", "PASSENGER CAR")] })).vechicleType
+                convert(vinCheckResponseFixture({ Results: [entry("Vehicle Type", "PASSENGER CAR")] })).vehicleType
             ).toEqual("PASSENGER CAR"))
 
         it("takes trim from Results array", () =>
@@ -41,7 +41,7 @@ describe("Vin Service", () => {
                 make: "MAZDA",
                 year: 2010,
                 model: "rx8",
-                vechicleType: "CAR",
+                vehicleType: "CAR",
                 trim: "RX8"
             }))
     })
