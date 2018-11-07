@@ -1,7 +1,12 @@
 // import { get } from "../utils/https"
 
-// const invalidChars = new RegExp(/[I]/, "g")
-export const filter = (vin: string) => vin
+const invalidChars = new RegExp(/[ioqIOQ]/, "g")
+export const filter = (vin: string) => {
+    return vin
+        .toUpperCase()
+        .replace(invalidChars, "")
+        .substring(0, 17)
+}
 
 export const validate = (_vin: string): string => null
 
