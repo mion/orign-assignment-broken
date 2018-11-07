@@ -10,7 +10,7 @@ export const filter = (vin: string) => {
 
 export const validate = (_vin: string): string => null
 
-const CAR_INFO_CONVERT_FUNC_BY_NHTSA_API_VARIABLE_NAME = {
+const CAR_INFO_CONVERT_FUNC_BY_NHTSA_API_VARIABLE_NAME: { [key: string]: (val: string) => Object } = {
     Make: (val: string): object => {
         return { make: val }
     },
@@ -52,7 +52,7 @@ export const convert = (_res: VinCheckResponse): CarInfo => {
     }
     return _res.Results.map(result => {
         const convertFunc = CAR_INFO_CONVERT_FUNC_BY_NHTSA_API_VARIABLE_NAME[result.Variable]
-        return typeof convertFunc !== "undefined" ? convertFunc(result.Value) : {}
+        return typeof convertFunc !== "undefined" ? { ...carInfo, ...convertFunc(result.Value) } : carInfo
     }).reduce((prev, curr) => {
         return { ...prev, ...curr }
     }, carInfo)
