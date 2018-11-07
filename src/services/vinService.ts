@@ -58,4 +58,18 @@ export const convert = (_res: VinCheckResponse): CarInfo => {
     }, carInfo)
 }
 
-export const apiCheck = async (_vin: string): Promise<CarInfo> => null
+export const apiCheck = async (_vin: string): Promise<CarInfo> =>
+    new Promise<CarInfo>((resolve, reject) => {
+        const suc = Math.random() > 0.0
+        if (suc) {
+            resolve({
+                make: "make1",
+                model: "model1",
+                year: 123,
+                trim: "trim1",
+                vehicleType: "vehicle1"
+            })
+        } else {
+            reject(new Error("something went wrong"))
+        }
+    })
