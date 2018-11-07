@@ -1,4 +1,4 @@
-// import { get } from "../utils/https"
+import { get } from "../utils/https"
 
 const invalidChars = new RegExp(/[ioqIOQ]/, "g")
 export const filter = (vin: string) => {
@@ -61,16 +61,20 @@ export const convert = (_res: VinCheckResponse): CarInfo => {
 
 export const apiCheck = async (_vin: string): Promise<CarInfo> =>
     new Promise<CarInfo>((resolve, reject) => {
-        const suc = Math.random() > 0.0
-        if (suc) {
-            resolve({
-                make: "make1",
-                model: "model1",
-                year: 123,
-                trim: "trim1",
-                vehicleType: "vehicle1"
+        const serverErrorMsg = "Our servers are down, this is not your fault. Please try again later."
+        const defaultErrorMsg = "Network failure. Please try again later."
+        get(`https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/${_vin}?format=json`)
+            .then(res => {
+                // TODO: how to handle this? ie, what happens in TS if type conv fails?
+                const carInfo = convert(res as VinCheckResponse)
+                if (carInfo === null) {
+                    reject(new Error(defaultErrorMsg))
+                } else {
+                    resolve(carInfo)
+                }
             })
-        } else {
-            reject(new Error("something went wrong"))
-        }
+            .catch(err => {
+                const msg = err.name === "serverError" ? serverErrorMsg : defaultErrorMsg
+                reject(new Error(msg))
+            })
     })
