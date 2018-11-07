@@ -3,7 +3,7 @@ interface CarInfo {
     model: string
     year: number
     trim: string
-    vechicleType: string
+    vehicleType: string
 }
 
 interface VinResultEntry {
