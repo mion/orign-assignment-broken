@@ -43,19 +43,20 @@ export const convert = (_res: VinCheckResponse): CarInfo => {
         return null
     }
 
-    const carInfo: CarInfo = {
+    let carInfo: CarInfo = {
         make: null,
         model: null,
         year: null,
         trim: null,
         vehicleType: null
     }
-    return _res.Results.map(result => {
+    _res.Results.forEach(result => {
         const convertFunc = CAR_INFO_CONVERT_FUNC_BY_NHTSA_API_VARIABLE_NAME[result.Variable]
-        return typeof convertFunc !== "undefined" ? { ...carInfo, ...convertFunc(result.Value) } : carInfo
-    }).reduce((prev, curr) => {
-        return { ...prev, ...curr }
-    }, carInfo)
+        if (typeof convertFunc !== "undefined") {
+            carInfo = { ...carInfo, ...convertFunc(result.Value) }
+        }
+    })
+    return carInfo
 }
 
 export const apiCheck = async (_vin: string): Promise<CarInfo> =>
