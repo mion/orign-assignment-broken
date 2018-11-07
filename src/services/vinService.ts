@@ -5,6 +5,24 @@ export const filter = (vin: string) => vin
 
 export const validate = (_vin: string): string => null
 
+const CAR_INFO_CONVERT_FUNC_BY_NHTSA_API_VARIABLE_NAME = {
+    Make: (val: string): object => {
+        return { make: val }
+    },
+    Model: (val: string) => {
+        return { model: val }
+    },
+    "Model Year": (val: string) => {
+        return { year: parseInt(val, 10) }
+    },
+    Trim: (val: string) => {
+        return { trim: val }
+    },
+    "Vehicle Type": (val: string) => {
+        return { vehicleType: val }
+    }
+}
+
 export const convert = (_res: VinCheckResponse): CarInfo => {
     const isUndef = typeof _res === "undefined"
     const isNull = _res == null
@@ -19,13 +37,21 @@ export const convert = (_res: VinCheckResponse): CarInfo => {
     if (isEmpty) {
         return null
     }
-    return {
-        make: "foo",
-        model: "bar",
-        year: 0,
-        trim: "quux",
-        vechicleType: "baz"
+
+    let carInfo: CarInfo = {
+        make: null,
+        model: null,
+        year: null,
+        trim: null,
+        vehicleType: null
     }
+    _res.Results.forEach(result => {
+        const convertFunc = CAR_INFO_CONVERT_FUNC_BY_NHTSA_API_VARIABLE_NAME[result.Variable]
+        if (typeof convertFunc !== "undefined") {
+            carInfo = { ...carInfo, ...convertFunc(result.Value) }
+        }
+    })
+    return carInfo
 }
 
 export const apiCheck = async (_vin: string): Promise<CarInfo> => null
