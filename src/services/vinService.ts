@@ -1,16 +1,18 @@
 import { get } from "../utils/https"
 
+const validVinNumberLength = 17
+
 const invalidChars = new RegExp(/[ioqIOQ]/, "g")
 export const filter = (vin: string) => {
     return vin
         .toUpperCase()
         .replace(invalidChars, "")
-        .substring(0, 17)
+        .substring(0, validVinNumberLength)
 }
 
-const invalidLengthErrorMsg = "17 chars expected"
+const invalidLengthErrorMsg = `${validVinNumberLength} chars expected`
 export const validate = (_vin: string): string => {
-    if (_vin.length !== 17) {
+    if (_vin.length !== validVinNumberLength) {
         return invalidLengthErrorMsg
     } else {
         return null
@@ -57,6 +59,7 @@ export const convert = (_res: VinCheckResponse): CarInfo => {
         trim: null,
         vehicleType: null
     }
+    // TODO: Could refactor this for a cleaner `map` then `reduce` approach.
     _res.Results.forEach(result => {
         const convertFunc = convertFuncForVariable[result.Variable]
         if (typeof convertFunc !== "undefined") {
@@ -68,11 +71,12 @@ export const convert = (_res: VinCheckResponse): CarInfo => {
 
 export const apiCheck = async (_vin: string): Promise<CarInfo> =>
     new Promise<CarInfo>((resolve, reject) => {
+        // TODO: Not a good idea to define UI-related stuff down here in service.
         const serverErrorMsg = "Our servers are down, this is not your fault. Please try again later."
         const defaultErrorMsg = "Network failure. Please try again later."
         get(`https://vpic.nhtsa.dot.gov/api/vehicles/decodevin/${_vin}?format=json`)
             .then(res => {
-                // TODO: how to handle this? ie, what happens in TS if type conv fails?
+                // TODO: What happens in TS if type conv fails? Could this happen here?
                 const carInfo = convert(res as VinCheckResponse)
                 if (carInfo === null) {
                     reject(new Error(defaultErrorMsg))
