@@ -8,6 +8,14 @@ body {
     font-size: 29px;
 }
 
+#app { /* TODO: not sure this is a good idea. Use a class instead. */
+    display: flex;
+    justify-content: center;
+    & > div {
+        width: 472px;
+    }
+}
+
 .Logo {
     display: flex;
     width: 119px;
