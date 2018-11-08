@@ -51,6 +51,15 @@ export const reducer: LoopReducer<RootState, Actions> = (state, action: Actions)
         case checkVinSuccess:
             return ext({ vinCheckResult: action.payload })
 
+        case checkVinFail:
+            const error = action.payload
+            // TODO: This alert is definitely a very bad way to handle this.
+            //       It just seems conceptually wrong to do UI stuff here in the reducer.
+            //       I'd probably add another redux-loop command to do it after updating the state
+            //       back to default, so that it would then present some dialog component.
+            alert("ERROR: " + error.message)
+            return ext({ vinCheckResult: "NotLoaded" })
+
         default:
             return state
     }
