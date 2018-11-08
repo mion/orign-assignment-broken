@@ -16,8 +16,8 @@ export const formatParams = (params: any) => {
     return "?" + keys.map(key => key + "=" + encodeURIComponent(params[key])).join("&")
 }
 
-// TODO: handle internet disconnected error
-// TODO: handle request timed out error (net::ERR_TIMED_OUT exception)
+// TODO: This code does not handle internet disconnected exceptions.
+// TODO: This code does not handle request timed out exceptions.
 export const request = <T>(url: string, data: any = null, bearer: string = null, method = "POST"): Promise<T> =>
     new Promise<T>((resolve, reject) => {
         let resolved = false

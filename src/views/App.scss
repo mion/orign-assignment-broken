@@ -8,7 +8,8 @@ body {
     font-size: 29px;
 }
 
-#app { /* TODO: not sure this is a good idea. Use a class instead. */
+#app { /* TODO: Not sure if using this framework-provided identifier is a good idea. 
+          Should probably use a class instead. */
     display: flex;
     justify-content: center;
     & > div {
