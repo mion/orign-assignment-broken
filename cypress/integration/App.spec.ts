@@ -14,6 +14,7 @@ const APP_URL = "http://localhost:4000"
 describe("App", () => {
     it("filters VIN, so I cannot type O, Q and I letter", () => {
         cy.visit(APP_URL)
+        cy.wait(2000)
         const input = cy.get(DOM.vinInput)
         input.type("FOQIF")
         input.should("have.value", "FF")
@@ -47,7 +48,8 @@ describe("App", () => {
         cy.visit(APP_URL)
         cy.get(DOM.vinInput).type("WBAFR1C52BC745487")
         cy.get(DOM.errorText).should("be.empty")
-        cy.get(DOM.decodeButton)
+        cy
+            .get(DOM.decodeButton)
             .click()
             .should("be.disabled")
         cy.screenshot("040-with-spinner-while-decoding")
