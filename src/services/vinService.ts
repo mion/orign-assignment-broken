@@ -8,16 +8,16 @@ export const filter = (vin: string) => {
         .substring(0, 17)
 }
 
-const VALIDATION_ERROR_MSG = "17 chars expected"
+const invalidLengthErrorMsg = "17 chars expected"
 export const validate = (_vin: string): string => {
     if (_vin.length !== 17) {
-        return VALIDATION_ERROR_MSG
+        return invalidLengthErrorMsg
     } else {
         return null
     }
 }
 
-const CAR_INFO_CONVERT_FUNC_BY_NHTSA_API_VARIABLE_NAME: { [key: string]: (val: string) => Object } = {
+const convertFuncForVariable: { [key: string]: (val: string) => Object } = {
     Make: (val: string): object => {
         return { make: val }
     },
@@ -58,7 +58,7 @@ export const convert = (_res: VinCheckResponse): CarInfo => {
         vehicleType: null
     }
     _res.Results.forEach(result => {
-        const convertFunc = CAR_INFO_CONVERT_FUNC_BY_NHTSA_API_VARIABLE_NAME[result.Variable]
+        const convertFunc = convertFuncForVariable[result.Variable]
         if (typeof convertFunc !== "undefined") {
             carInfo = { ...carInfo, ...convertFunc(result.Value) }
         }
