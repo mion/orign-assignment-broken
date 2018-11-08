@@ -5,19 +5,19 @@ $color: #ff9393;
     flex-direction: column;
     position: relative;
     input {
-        font-weight: 500;
+        font-weight: 400;
         border-radius: 5px;
         border-style: none;
         caret-color: #1056ad;
         background-color: #f1f1f1;
-        font-size: 40px;
+        font-size: 1.4em;
         font-style: bold;
-        padding: 10px 11px;
+        padding: 9px 13px;
     }
     &__Error {
         color: $color;
-        font-size: 15px;
-        font-weight: 400;
+        font-size: .5em;
+        font-weight: 300;
         position: absolute;
         bottom: -23px;
         width: 100%;

@@ -1,10 +1,10 @@
 .CarInfoPreview {
     &__Line {
-        color: #404040;
+        color: #111111;
         font-size: 23px;
-        font-weight: 400;
+        font-weight: 300;
         border-bottom: 1px solid #eee;
-        padding: 12px;
+        padding: 10px 0;
     }
     &__Line:last-child {
         border-bottom: none;
