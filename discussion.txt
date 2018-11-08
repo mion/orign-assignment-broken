@@ -1,5 +1,6 @@
 Assumptions:
 - The docs mention 'vehicleType' instead of 'trim', but code contains 'trim' and so does the GIF in the docs. I assumed 'trim' would be the right one and ignored 'vehicleType' in the output (but I left it in the code so it'd be easy to add if needed).
+- I didn't ensure the UI is responsive and neither that it works on mobile.
 - This VIN number service is only guaranteed to work for US vehicles.
 - This app will not work for cars made before 1981.
 - The 'year of production' mentioned in the readme corresponds to the 'model year' of the NHTSA API.
