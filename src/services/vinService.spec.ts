@@ -1,4 +1,4 @@
-import { convert, filter } from "./vinService"
+import { convert, validate, filter } from "./vinService"
 import { vinCheckResponseFixture, vinResultEntryFixture } from "../test/fixtures"
 
 describe("Vin Service", () => {
@@ -44,6 +44,12 @@ describe("Vin Service", () => {
                 vehicleType: "CAR",
                 trim: "RX8"
             }))
+    })
+
+    describe("Vin simple validation", () => {
+        it("gives empty when string has 17 chars", () => expect(validate("ABCDEFGHIJ1234567")).toBeNull())
+        it("gives error when string has less than 17 chars", () => expect(validate("ABCDEFGHIJ1234")).toBeTruthy())
+        it("gives error when string has more than 17 chars", () => expect(validate("ABCDEFGHIJ123456789")).toBeTruthy())
     })
 
     describe("Vin string filter", () => {
