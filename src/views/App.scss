@@ -27,12 +27,15 @@ body {
 button {
     width: 100%;
     font-size: 1em;
-    font-weight: 100;
+    font-weight: 200;
     border: none;
+    border-radius: 5px;
     background: #2196F3;
     color: white;
     cursor: pointer;
     transition: 200ms all linear;
+    padding: 18px;
+    margin-top: 34px;
 }
 
 button:disabled {
