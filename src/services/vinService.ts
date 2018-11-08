@@ -8,7 +8,14 @@ export const filter = (vin: string) => {
         .substring(0, 17)
 }
 
-export const validate = (_vin: string): string => null
+const VALIDATION_ERROR_MSG = "17 chars expected"
+export const validate = (_vin: string): string => {
+    if (_vin.length !== 17) {
+        return VALIDATION_ERROR_MSG
+    } else {
+        return null
+    }
+}
 
 const CAR_INFO_CONVERT_FUNC_BY_NHTSA_API_VARIABLE_NAME: { [key: string]: (val: string) => Object } = {
     Make: (val: string): object => {
