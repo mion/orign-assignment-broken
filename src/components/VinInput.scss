@@ -3,7 +3,12 @@ $color: #ff9393;
     display: flex;
     input {
         border-radius: 5px;
+        border-style: none;
         caret-color: #1056ad;
+        background-color: #f1f1f1;
+        font-size: 40px;
+        font-style: bold;
+        padding: 10px 11px;
     }
     &__Error {
         color: $color;
