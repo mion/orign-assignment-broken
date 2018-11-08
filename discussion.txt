@@ -1,0 +1,11 @@
+Assumptions:
+- The docs mention 'vehicleType' instead of 'trim', but code contains 'trim' and so does the GIF in the docs. I assumed 'trim' would be the right one and ignored 'vehicleType' in the output (but I left it in the code so it'd be easy to add if needed).
+- This VIN number service is only guaranteed to work for US vehicles.
+- This app will not work for cars made before 1981.
+- The 'year of production' mentioned in the readme corresponds to the 'model year' of the NHTSA API.
+
+Considerations:
+- I mixed 'px' and 'em' when styling font sizes though this is not a good idea (should've used .em)
+- The way the filtering works does not constitues good UX (no feedback if invalid letter typed)
+- Could've used the variableId from the NHTSA API instead of the variable name (seems more robust)
+- The e2e test engine was not rendering an element fast enough so I hacked a 2sec wait delay to the Cypress spec.
